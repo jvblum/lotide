@@ -1,76 +1,77 @@
-const assertEqual = function(actual, expected) {
-  if (actual === expected) {
-    console.log(`Assertion Passed✅: ${actual} === ${expected}`);
-  } else {
-    console.log(`Assertion Failed🔴: ${actual} !== ${expected}`);
+const eqArrays = function (inArr1, inArr2) {
+  if (inArr1.length !== inArr2.length) {
+    return false;
   }
-};
-
-const eqArrays = function(array1, array2) {
-  let mismatch;
-  for (let i = 0; i <= array1.length; i++) { // "<=" for cases when array1[i] is equal to array2[i] within array1.length, but array1.length !== array2.length
-    if (array1[i] !== array2[i]) {
-      // console.log("mismatch!", array1[i], "?==", array2[i]);
-      mismatch = true;
-      break;
-    }
-  }
-  return mismatch ? false : true;
-};
-
-const assertArraysEqual = function(array1, array2) {
-  if (eqArrays(array1, array2)) {
-    console.log(`Assertion Passed✅`);
-  } else {
-    console.log(`Assertion Failed🔴`);
-  }
-};
-
-// Returns true if both objects have identical keys with identical values.
-// Otherwise you get back a big fat false!
-const eqObjects = function(object1, object2) {
-  const objKeys1 = Object.keys(object1);
-  const objKeys2 = Object.keys(object2);
-
-  if (objKeys1.length !== objKeys2.length) {
-    return false
-  }
-
-  if (!eqArrays(objKeys1.sort(), objKeys2.sort())) {
-    return false
-  }
-
-  for (let key in object1) {
-    if (Array.isArray(object1[key]) && Array.isArray(object2[key])) {
-      if (!eqArrays(object1[key], object2[key])) {
-        return false
+  
+  for (let i = 0; i < inArr1.length; i++) {
+    const kz1 = inArr1[i];
+    const kz2 = inArr2[i]; 
+    if (Array.isArray(kz1) && Array.isArray(kz2)) {
+      if(!eqArrays(kz1, kz2)) {
+        return false;
       }
-    } else if (object1[key] !== object2[key]) {
-        return false
+    } else {
+      if (kz1 !==  kz2) {
+        return false;
+      }
     }
   }
   return true;
 };
 
+const eqObjects = function(inObj1, inObj2) {
+  const kz1 = Object.keys(inObj1);
+  const kz2 = Object.keys(inObj2);
 
+  if (kz1.length !== kz2.length) {
+    return false;
+  }
 
+  if (!eqArrays(kz1.sort(), kz2.sort())) {
+    return false
+  }
 
-// test
+  for (const key in inObj1) {
+    const kz1 = inObj1[key];
+    const kz2 = inObj2[key];
+    if (typeof kz1 === "object" && typeof kz2 === "object") {
+      if (Array.isArray(kz1) && Array.isArray(kz2)) {
+        if (!eqArrays(kz1, kz2)) {
+          return false;
+        }
+      } else if (!eqObjects(kz1,kz2)) {
+          return false;
+      }
+    } else {
+      if (kz1 !== kz2) {
+        console.log("mismatch!")
+        return false;
+      }
+    }
+  }
+  return true;
+};
 
-const ab = { a: "1", b: "2" };
-const ba = { b: "2", a: "1" };
-console.log(eqObjects(ab, ba)); // => true
+// // test
 
-const abc = { a: "1", b: "2", c: "3" };
-console.log(eqObjects(ab, abc)); // => false
+// const ab = { a: "1", b: "2" };
+// const ba = { b: "2", a: "1" };
+// console.log(eqObjects(ab, ba)); // => true
 
-// test2
+// const abc = { a: "1", b: "2", c: "3" };
+// console.log(eqObjects(ab, abc)); // => false
 
-const cd = { c: "1", d: ["2", 3] };
-const dc = { d: ["2", 3], c: "1" };
+// // test2
+
+const cd = { c: { d: ["2", 3], c: "1" }, d: ["2", 3] };
+const dc = { d: ["2", 3], c: { d: ["2", 3], c: "1" } };
 console.log(eqObjects(cd, dc)); // => true
 
-const cd2 = { c: "1", d: ["2", 3, 4] };
-console.log(eqObjects(cd, cd2)); // => false
+// const cd2 = { c: "1", d: ["2", 3, 4] };
+// console.log(eqObjects(cd, cd2)); // => false
 
+// // test 3
 
+// const Obj1 = {a: 1, b: 2, c: null};
+// const Obj2 = {cr: "a", b: 2, c: null};
+// console.log(eqObjects(Obj1, Obj2));
