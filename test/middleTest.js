@@ -1,21 +1,17 @@
 const middle = require("../middle");
-const assertArraysEqual = require("../assertArraysEqual");
+const assert = require('chai').assert;
 
-console.log(middle([1, 2, 3, 4 ,5])); // -> [3]
-console.log(middle([1, 2, 3, 4 ,5, 6, 7, 8])); // -> [4, 5]
-console.log(middle([
-  1, 2, 3, 4, 5, 6,
-  7, 8, 9, 10, 11, 12,
- 13, 14
-])); // -> [7, 8]
-console.log(middle([
-  1, 2, 3, 4, 5, 6, 7, 8, 9,
- 10, 11, 12, 13, 14, 15, 16, 17, 18,
- 19, 20, 21, 22, 23, 24, 25, 26, 27,
- 28, 29, 30, 31
-])); // -> [16]
-console.log(middle("everybody".split(""))); // -> ["y"]
-console.log(middle("everyone".split(""))); // -> ["r", "y"]
-
-assertArraysEqual(middle("gestern".split("")), ["t"]); // -> pass
-assertArraysEqual(middle("pflanzen".split("")), ["a", "n"]); // -> pass
+describe("#middle", () => {
+  it("returns [3] for [1, 2, 3, 4, 5]", () => {
+    assert.deepEqual(middle([1, 2, 3, 4 ,5]), [3]);
+  });
+  it("returns [4, 5] for [1, 2, 3, 4, 5, 6, 7, 8]", () => {
+    assert.deepEqual(middle([1, 2, 3, 4 ,5, 6, 7, 8]), [4, 5]); 
+  });
+  it("returns ['t'] for 'gestern'.split('')", () => {
+    assert.deepEqual(middle("gestern".split("")), ["t"]); 
+  });
+  it("returns ['a', 'n'] for 'pflanzen'.split('')", () => {
+    assert.deepEqual(middle("pflanzen".split("")), ["a", "n"]); 
+  });
+});
