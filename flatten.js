@@ -1,15 +1,17 @@
 const flatten = function (array) {
-  let output = [];
-  for (let item of array) { 
-    if (Array.isArray(item)) {
-      for (let nestItem of item) {
-        output.push(nestItem);
-      }
+  const output = [];
+  const hasArray = arr => {
+    for (const elm of arr) if (Array.isArray(elm)) return true;
+  }
+
+  for (const elm of array) { 
+    if (Array.isArray(elm)) {
+      for (const nstElm of elm) output.push(nstElm);
     } else {
-    output.push(item);
+    output.push(elm);
     }
   }
-  return output;
+  return hasArray(output) ? flatten(output) : output;
 };
 
 module.exports = flatten;
