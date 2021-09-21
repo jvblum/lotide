@@ -1,0 +1,26 @@
+{
+  "name": "@jvblum/lotide",
+  "version": "1.0.1",
+  "description": "mini-clone of Lotide; written for learning purposes; at Lighthouse Labs",
+  "main": "assertArraysEqual.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jvblum/lotide.git"
+  },
+  "author": "JV Melliza <jvmell.skch@gmail.com> (https://github.com/jvblum)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jvblum/lotide/issues"
+  },
+  "homepage": "https://github.com/jvblum/lotide#readme",
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^9.1.1"
+  }
+}
